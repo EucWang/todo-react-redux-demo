@@ -1,17 +1,24 @@
 
 .linkClass{
     margin-left: 10px;
-    background: aquamarine;
     height:28px;
     text-align:center;
 }
 
+.linkContainer {
+    width:90px;
+    background: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .filters{
-    flex:1;
+    display:flex;
     border:1px solid gray;
-    width:270px;
-    height:28px;
-    align-content: center;
+    width:300px;
+    height:35px;
+    justify-content: space-around;
     align-items: center;
 }
 

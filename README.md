@@ -304,3 +304,73 @@ class Counter extends Component {
 }
 ```
 
+### 6. Redux对View的封装(容器组件和傻瓜组件)
+#### 6.1 Redux的Provider提供的全局context
+
+1. Provider作为顶层组件,
+2. Provider组件持有store, 
+3. Provider只是把渲染工作完全交给子组件,
+4. Provider只是提供context, 让整个应用中所有组件有可以访问context
+
+```
+import registerServiceWorker from './registerServiceWorker';
+import store from './Store.js';
+import {Provider} from 'react-redux';
+
+ReactDOM.render((<Provider store={store}>
+                    <ControlPanel />
+                </Provider>),
+        document.getElementById('root'));
+registerServiceWorker();
+```
+
+在ControlPanel中就可以直接访问这个context对象了
+```
+//constructor(props, context){  //构造函数需要中接受context参数
+//    super(props, context);
+//}
+constructor(){super(...arguments);} //这样写,就不用考虑参数增加的麻烦了
+getOwnState(){
+    return {
+        //通过context可以拿到store,从而全局就可以直接拿去store,而不用去import了
+        value: this.context.store.getState()[this.props.caption]
+    };
+}
+...
+```
+
+
+#### 6.2 傻瓜组件
+1. 拆分View为容器组件和傻瓜组件, 是react的一种模式, 和redux无关
+2. 傻瓜组件只需要根据props来渲染,不需要state
+3. 容器组件的模式基本固定, 根据store的数据来获取相应的数据,然后通过props传递给傻瓜组件,所有这里可以抽象容器组件
+
+1.一个傻瓜组件
+```
+//Counter.js
+const Counter  = ({caption, onIncre, onDecre, value})=>(
+    <div>
+        <button onClick={onIncre}>+</button>
+        <button onClick={onDecre}>-</button>
+        <span>{caption} count: {value}</span>
+    </div>
+)
+```
+
+#### 6.3 使用connect()函数产生容器组件
+
+容器组件的2个工作:
+
+1. 把Store上的数据转换成内层傻瓜组件需要的props(这是对傻瓜组件的输入)
+2. 把内层傻瓜组件中的用户动作转换成派送给Store的动作(这是傻瓜组件的输出)
+
+根据如上套路,***connect***是react-redux提供的一个方法, 这个方法接受2个参数:
+
+* mapStateToProps:     完成store上的数据到组件的props的一个映射
+* mapDispatchToProps:  完成组件中用户的动作到store中派送动作的映射
+
+如下,会执行2次函数调用,connect()函数执行之后返回一个新的函数,新的函数接受参数Counter组件作为参数,再次执行之后返回一个容器组件
+
+```
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```

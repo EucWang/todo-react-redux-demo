@@ -7,17 +7,18 @@ class TodoItem extends React.Component{
     render(){
         const {onToggleItem, onRemove, completed, text, id} = this.props;
 
-        return (<li className="itemClass" style={{textDecoration:completed?'line-through':'none'}}>
-            <input id={id} 
-                    type="checkbox" 
-                    checked={completed?"checked":""}
-                    readOnly 
-                    className="checkboxClass"
-                    onClick={onToggleItem} />
-            <label htmlFor={id}>{text}</label>
-            <button className="itemBtnRemove" 
-                    onClick={onRemove}>X</button>
-        </li>)
+        return (
+            <li className="itemClass" style={{textDecoration:completed?'line-through':'none'}}>
+                <input id={id}
+                        type="checkbox"
+                        checked={completed?"checked":""}
+                        readOnly
+                        className="checkboxClass"
+                        onClick={onToggleItem} />
+                <label htmlFor={id}>{text}</label>
+                <button className="itemBtnRemove"
+                        onClick={onRemove}>X</button>
+            </li>)
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -27,9 +28,10 @@ class TodoItem extends React.Component{
 }
 
 const mapDispatchToProps = (dispatch, ownProps)=>({
-    onToggleItem: ()=>ownProps.onToggle(ownProps.id)
+    onToggleItem: ()=>ownProps.onToggle(ownProps.id),
+    onRemove: ()=>ownProps.completed?'':ownProps.onRemove(ownProps.id)
 });
 
 // export default TodoItem
 
-export default connect(null, mapDispatchToProps)(TodoItem)
+export default connect(null, mapDispatchToProps)(TodoItem);

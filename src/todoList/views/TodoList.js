@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import * as Actions from '../actions.js'
-import {ALL, ACTIVE, COMPLETED} from '../../constants.js'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import * as Actions from '../actions.js';
+import {ALL, ACTIVE, COMPLETED} from '../../constants.js';
 
 // import {bindActionCreators} from 'redux'
 
@@ -20,7 +20,7 @@ const TodoList = ({todos=[], onToggleTodo, onRemoveTodo})=>
                     onRemove={onRemoveTodo} />
             ))
         }
-    </ul>)
+    </ul>);
                     {/* onToggle={()=>onToggleTodo(item.id)}
                     onRemove={()=>onRemoveTodo(item.id)} /> */}
 
@@ -28,7 +28,7 @@ TodoList.propTypes = {
     todos: PropTypes.array.isRequired,
     onToggleTodo: PropTypes.func,
     onRemoveTodo: PropTypes.func
-}
+};
 
 const selectVisibleTodos =(todos, filter='all')=>{
     // console.log("filter : " + filter + ", todos : " + todos && todos[0].text)
@@ -42,18 +42,18 @@ const selectVisibleTodos =(todos, filter='all')=>{
         case COMPLETED:
             return todos.filter((item)=>{
                 return item.completed;
-            })
+            });
         default:
             throw new Error('unsupported filter'); 
     }
-}
+};
 
 const mapStateToProps = (state)=>{
-    console.log()
+    console.log();
     return {
         todos: selectVisibleTodos(state.todos, state.filter)
     }
-}
+};
 
 // const mapDispatchToProps = (dispatch, ownProps)=>{
 //     return ({
@@ -83,7 +83,7 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = {
     onToggleTodo: Actions.toggleTodo,
     onRemoveTodo: Actions.removeTodo
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
 

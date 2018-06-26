@@ -1,20 +1,22 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import * as Actions from '../actions.js'
-import "./index.css"
+import React from 'react';
+import {connect} from 'react-redux';
+import * as Actions from '../actions.js';
+import "./index.css";
 
 const Link = ({active, children, onClick})=>{
     console.log("active : " + active + ", children : " + children);
     if(active){
-        return <b className="linkClass">{children}</b>;
+        return (  <div className="linkContainer"><b className="linkClass">{children}</b></div>);
     }else{
         return (
-                <a href="#"
-                    className="linkClass"
-                    onClick={(event)=>{
+            <div className="linkContainer">
+            <a href="#"
+                className="linkClass"
+                onClick={(event)=>{
                     event.preventDefault();
                     onClick(children);
-                    }}>{children}</a>
+                }}>{children}</a>
+            </div>
         )
     }
 };

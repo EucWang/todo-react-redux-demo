@@ -5,20 +5,17 @@ import {addTodo} from '../actions.js';
 import "./index.css";
 
 class AddTodo extends React.Component{
-
     constructor(){
         super(...arguments);
-
-        this.onSubmit = this.onSubmit.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
         // this.refInput = this.refInput.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
-
+        // this.onInputChange = this.onInputChange.bind(this);
         this.state = {
             value : ""
         }
     }
 
-    onSubmit(event){
+    onSubmit = (event)=>{
         console.log('onSubmit...');
         event.preventDefault();
         // const input = this.input;
@@ -30,19 +27,19 @@ class AddTodo extends React.Component{
         this.props.onAdd(input);
         // input='';
         this.setState({value:""});
-    }
+    };
 
     // refInput(node){
     //     this.input = node;
     // }
 
-    onInputChange(event){
+    onInputChange = (event)=>{
         this.setState(
             {
                 value: event.target.value
             }
         )
-    }
+    };
 
     render(){
         return (<div className="addTodo">
