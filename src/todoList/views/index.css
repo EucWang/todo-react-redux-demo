@@ -1,0 +1,26 @@
+.addTodo{
+    margin-top:10px;
+    margin-left:10px;
+}
+
+.btnAdd {
+    margin-left: 5px;
+    height: 21px;
+    width:56px;
+}
+
+.itemClass {
+    list-style-type:none;
+    width:500px;
+}
+
+.itemBtnRemove {
+    margin-left: 10px;
+    width: 45px;
+    margin-right: 0%;
+}
+
+.checkboxClass{
+    display: none;
+    cursor: pointer;
+}

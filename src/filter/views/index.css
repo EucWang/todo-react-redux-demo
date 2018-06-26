@@ -1,0 +1,18 @@
+
+.linkClass{
+    margin-left: 10px;
+    background: aquamarine;
+    height:28px;
+    text-align:center;
+}
+
+.filters{
+    flex:1;
+    border:1px solid gray;
+    width:270px;
+    height:28px;
+    align-content: center;
+    align-items: center;
+}
+
+
